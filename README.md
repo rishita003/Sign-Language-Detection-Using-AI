@@ -1,133 +1,154 @@
-# Hand Sign Detection Using AI
+# Hand Sign Detection using AI
 
-A deep learning-based hand sign recognition system using Python, TensorFlow/Keras, and computer vision. This project can recognize hand signs from images or real-time webcam input.
-
----
-
-## Table of Contents
-
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Dataset Creation](#dataset-creation)
-- [Model Training](#model-training)
-- [Running Inference](#running-inference)
-- [Project Structure](#project-structure)
-- [License](#license)
+This project is a real-time **Hand Sign Detection system** using **Mediapipe** and **Random Forest classifier**. It recognizes hand gestures (A, B, L by default) from webcam input and predicts the corresponding class.
 
 ---
 
-## Features
+## **Table of Contents**
 
-- Recognizes hand gestures/signs from images or webcam input.
-- Custom dataset creation using your own hand gestures.
-- Trainable convolutional neural network (CNN) for classification.
-- Real-time gesture detection and classification.
+- [Features](#features)  
+- [Requirements](#requirements)  
+- [Setup](#setup)  
+- [Usage](#usage)  
+  - [1. Clone the Repository](#1-clone-the-repository)  
+  - [2. Install Dependencies](#2-install-dependencies)  
+  - [3. Collect Data (Optional)](#3-collect-data-optional)  
+  - [4. Create Dataset](#4-create-dataset)  
+  - [5. Train the Model](#5-train-the-model)  
+  - [6. Run Inference](#6-run-inference)  
+- [Dataset](#dataset)  
+- [Notes](#notes)  
+- [License](#license)  
 
 ---
 
-## Prerequisites
+## **Features**
 
-- Python 3.8+  
-- TensorFlow 2.x / Keras  
-- OpenCV  
-- NumPy, Matplotlib  
-- Other dependencies listed in `requirements.txt`
+- Real-time hand sign detection using webcam.  
+- Uses **Mediapipe** for hand landmark extraction.  
+- Trains a **Random Forest classifier** on hand landmark features.  
+- Modular scripts for data collection, feature extraction, training, and inference.  
 
 ---
 
-## Installation
+## **Requirements**
 
-1. **Clone the repository:**
-
-```bash
-git clone https://github.com/rishita003/Sign-Language-Detection-Using-AI.git
-cd Sign-Language-Detection-Using-AI
+- Python 3.10+  
+- Packages:
+  ```bash
+  pip install opencv-python mediapipe matplotlib scikit-learn numpy
 ````
 
-2. **Install dependencies:**
+* Webcam (built-in or external)
+
+---
+
+## **Setup**
+
+### **1. Clone the Repository**
+
+```bash
+git clone https://github.com/<your-username>/<repo-name>.git
+cd <repo-name>
+```
+
+---
+
+### **2. Install Dependencies**
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Dataset Creation
-
-You can create your own hand gesture dataset using the provided scripts.
-
-1. **Collect images**:
+> If `requirements.txt` is missing, manually install:
 
 ```bash
-python collect_imgs.py
+pip install opencv-python mediapipe matplotlib scikit-learn numpy
 ```
-
-* Follow the instructions to capture images for each gesture.
-* Images will be saved in the `Dataset/` folder structured by class.
-
-2. **Check your dataset**:
-
-* Ensure that each gesture/class has enough images for training.
 
 ---
 
-## Model Training
+### **3. Collect Data (Optional)**
 
-Train the CNN model using the collected dataset:
+If you want to collect your own hand gestures:
+
+```bash
+python collect_images.py
+```
+
+* Press **`q`** to start collecting frames for each class.
+* Images are stored in `./data/<class_number>/`.
+* By default, the script collects **100 images per class**.
+* Update `number_of_classes` and `dataset_size` in the script as needed.
+
+> **Tip:** You can also use a pre-existing dataset (like ASL) instead of collecting images.
+
+---
+
+### **4. Create Dataset**
+
+Extract hand landmark features from collected images:
+
+```bash
+python create_dataset.py
+```
+
+* Generates `data.pickle` containing:
+
+  * `data` → hand landmark features
+  * `labels` → class labels
+
+---
+
+### **5. Train the Model**
+
+Train the classifier:
 
 ```bash
 python train_classifier.py
 ```
 
-* The model will be trained and saved as `cnn_model.h5`.
-* Hyperparameters can be adjusted in the script (epochs, batch size, learning rate).
+* Splits the dataset into **80% train / 20% test**.
+* Prints accuracy on the test set.
+* Saves the trained model as `model.p`.
 
 ---
 
-## Running Inference
+### **6. Run Inference**
 
-Once the model is trained, you can test it on new images or webcam input:
+Run real-time hand sign detection using your webcam:
 
 ```bash
 python inference_classifier.py
 ```
 
-* For real-time webcam detection, follow the on-screen instructions.
-* The system will classify your hand gestures and display results live.
+* Make sure `model.p` exists in the project folder.
+* Predictions appear as bounding boxes and labels on the webcam feed.
+* Press **`ESC`** or close the window to stop.
 
 ---
 
-## Project Structure
+## **Dataset**
 
-```
-Sign-Language-Detection-Using-AI/
-│
-├── collect_imgs.py         # Script to collect gesture images
-├── create_dataset.py       # Organize images into dataset format
-├── train_classifier.py     # Train CNN model
-├── inference_classifier.py # Run trained model on webcam/input
-├── cnn_model.h5            # Saved trained model
-├── requirements.txt        # Python dependencies
-├── Dataset/                # Folder to store gesture images
-└── README.md               # Project documentation
-```
+* By default, the project works with 3 classes (0, 1, 2 → mapped to `A`, `B`, `L`).
+* You can use your own data or any public dataset like **ASL** (A-Z).
+* If using a larger dataset, update:
+
+  * `number_of_classes` in `collect_images.py`
+  * `labels_dict` in `inference_classifier.py`
 
 ---
 
-## License
+## **Notes**
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+* **Webcam index:** Default is `2` in scripts. Change it if your webcam uses a different index:
 
----
+  ```python
+  cap = cv2.VideoCapture(0)  # change 0, 1, 2, etc.
+  ```
+* **Model improvements:** You can replace Random Forest with other classifiers or deep learning models for better accuracy.
+* **Data augmentation:** Recommended if using a small dataset.
+ 
 
-## Notes / Tips
-
-* Make sure lighting is consistent during image collection for better accuracy.
-* Use `requirements.txt` to install all dependencies.
-* Increase dataset size for better model performance.
-* You can modify `train_classifier.py` to tweak CNN architecture or hyperparameters.
-
-```
 Do you want me to do that?
 ```
