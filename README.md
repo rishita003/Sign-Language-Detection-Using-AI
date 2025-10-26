@@ -37,7 +37,7 @@ This project is a real-time **Hand Sign Detection system** using **Mediapipe** a
 - Packages:
   ```bash
   pip install opencv-python mediapipe matplotlib scikit-learn numpy
-````
+
 
 * Webcam (built-in or external)
 
