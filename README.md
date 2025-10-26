@@ -1,5 +1,4 @@
 
-```markdown
 # Hand Gesture Recognition Using CNN & OpenCV
 
 This project implements a real-time **hand gesture recognition system** using OpenCV and Convolutional Neural Networks (CNN) in Keras/TensorFlow. The system captures hand gestures via webcam, trains a CNN model, and predicts gestures in real-time.
