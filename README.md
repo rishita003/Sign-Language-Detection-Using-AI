@@ -141,7 +141,7 @@ python inference_classifier.py
 
 ## **Notes**
 
-* **Webcam index:** Default is `2` in scripts. Change it if your webcam uses a different index:
+* **Webcam index:** Default is `0` in scripts. Change it if your webcam uses a different index:
 
   ```python
   cap = cv2.VideoCapture(0)  # change 0, 1, 2, etc.
@@ -149,6 +149,3 @@ python inference_classifier.py
 * **Model improvements:** You can replace Random Forest with other classifiers or deep learning models for better accuracy.
 * **Data augmentation:** Recommended if using a small dataset.
  
-
-Do you want me to do that?
-```
