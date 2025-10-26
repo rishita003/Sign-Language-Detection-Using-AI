@@ -163,6 +163,5 @@ This project is for **educational and research purposes**. You may modify and di
 * Keras and TensorFlow for deep learning
 * pyttsx3 for text-to-speech feedback
 
-```
 
 
