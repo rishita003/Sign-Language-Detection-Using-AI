@@ -14,7 +14,7 @@ This project implements a real-time **hand gesture recognition system** using Op
 - Voice feedback using text-to-speech (optional)
 
 ---
-
+````
 ## Folder Structure
 
 
