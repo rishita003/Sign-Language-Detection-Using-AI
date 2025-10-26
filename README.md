@@ -18,7 +18,6 @@ This project implements a real-time **hand gesture recognition system** using Op
 
 ## Folder Structure
 
-```
 
 HandGestureRecognition/
 │
